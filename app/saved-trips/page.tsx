@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toCurrency, tripToSearchParams } from "@/lib/trip";
 import {
   deleteSavedTrip,
@@ -11,11 +11,7 @@ import {
 } from "@/lib/saved-trips";
 
 export default function SavedTripsPage() {
-  const [savedTrips, setSavedTrips] = useState<SavedTrip[]>([]);
-
-  useEffect(() => {
-    setSavedTrips(getSavedTrips());
-  }, []);
+  const [savedTrips, setSavedTrips] = useState<SavedTrip[]>(() => getSavedTrips());
 
   function handleDelete(id: string) {
     setSavedTrips(deleteSavedTrip(id));
