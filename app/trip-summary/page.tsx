@@ -1,8 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
 import {
   calculateTripTotals,
   dummyTrip,
@@ -10,16 +6,39 @@ import {
   tripFromSearchParams,
 } from "@/lib/trip";
 
-export default function TripSummaryPage() {
-  const searchParams = useSearchParams();
+interface TripSummaryPageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
 
-  const trip = useMemo(() => {
-    const parsed = tripFromSearchParams(new URLSearchParams(searchParams.toString()));
-    return parsed ?? dummyTrip;
-  }, [searchParams]);
+function toUrlSearchParams(
+  source: Record<string, string | string[] | undefined>,
+): URLSearchParams {
+  const urlSearchParams = new URLSearchParams();
 
-  const totals = useMemo(() => calculateTripTotals(trip), [trip]);
-  const showingDummyData = searchParams.toString().length === 0;
+  for (const [key, value] of Object.entries(source)) {
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        urlSearchParams.append(key, item);
+      }
+      continue;
+    }
+
+    if (typeof value === "string") {
+      urlSearchParams.set(key, value);
+    }
+  }
+
+  return urlSearchParams;
+}
+
+export default async function TripSummaryPage({
+  searchParams,
+}: TripSummaryPageProps) {
+  const params = toUrlSearchParams(await searchParams);
+  const parsedTrip = tripFromSearchParams(params);
+  const trip = parsedTrip ?? dummyTrip;
+  const totals = calculateTripTotals(trip);
+  const showingDummyData = !parsedTrip;
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
