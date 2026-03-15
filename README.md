@@ -27,6 +27,7 @@ MyTripTab is a production-ready web app for travelers who want to record and und
 
 - **Homepage**: Product overview and value proposition
 - **Create Trip**: Card-based form for entering trip details and costs
+- **Saved Trips**: List view of trips saved in browser storage
 - **Trip Summary**: Full breakdown by category with total and per-person cost
 
 The app also includes:
@@ -34,6 +35,7 @@ The app also includes:
 - Basic top navigation
 - Responsive layout
 - Built-in dummy trip data for quick exploration
+- Save trips and revisit them from a dedicated list view
 
 ## Run Locally
 

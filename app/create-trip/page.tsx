@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   EXPENSE_CATEGORIES,
@@ -11,6 +12,7 @@ import {
   type ExpenseCategory,
   type TripData,
 } from "@/lib/trip";
+import { saveTrip } from "@/lib/saved-trips";
 
 function cloneDummyTrip(): TripData {
   return {
@@ -59,6 +61,7 @@ export default function CreateTripPage() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    saveTrip(trip);
     const params = tripToSearchParams(trip);
     router.push(`/trip-summary?${params.toString()}`);
   }
@@ -195,6 +198,12 @@ export default function CreateTripPage() {
             >
               Reset to example data
             </button>
+            <Link
+              href="/saved-trips"
+              className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+            >
+              View Saved Trips
+            </Link>
           </div>
         </section>
       </form>

@@ -119,6 +119,12 @@ export default async function TripSummaryPage({
             Create or Edit Trip
           </Link>
           <Link
+            href="/saved-trips"
+            className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+          >
+            View Saved Trips
+          </Link>
+          <Link
             href="/"
             className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
           >
